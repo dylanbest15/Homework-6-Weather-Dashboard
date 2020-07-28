@@ -5,6 +5,26 @@ var currentWeatherResults = $("div.current-weather-results");
 var url = "https://api.openweathermap.org/data/2.5/weather?";
 var apiKey = "7c5da79212fcccfaa4134fd2a597f8b6";
 
+function getForecast(lat, lon) {
+
+    // create second query url with coordinates
+    var secondURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+
+    $.ajax({
+        url: secondURL,
+        method: "GET"
+    }).then(function(forecast) {
+
+        console.log(forecast);
+
+        for (var i = 0; i < 5; i++) {
+
+            // create forecast card
+        }
+    });
+
+}
+
 // search button click event
 $("#search").on("click", function () {
     currentWeatherResults.empty();
@@ -30,5 +50,7 @@ $("#search").on("click", function () {
         // append to empty div
         currentWeatherResults.append(cityName, temp, humidity, wind, uvIndex);
 
+        // call get forecast function using coordinates
+        getForecast(response.coord.lat, response.coord.lon);
     });
 })
