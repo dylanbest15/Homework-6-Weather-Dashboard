@@ -6,6 +6,8 @@ var forecastResults = $("div.forecast-results");
 var url = "https://api.openweathermap.org/data/2.5/weather?";
 var apiKey = "7c5da79212fcccfaa4134fd2a597f8b6";
 
+console.log(moment().add(1, 'days').format("l"));
+
 function getCurrentWeather() {
 
     // create query url with city name
@@ -20,7 +22,7 @@ function getCurrentWeather() {
         console.log(response);
 
         // create current weather data
-        var cityName = $("<h2>").text(response.name);
+        var cityName = $("<h2>").text(`${response.name} ${moment().format("l")}`);
         var temp = $("<p>").text(`Temperature: ${response.main.temp} °F`);
         var humidity = $("<p>").text(`Humidity: ${response.main.humidity}%`);
         var wind = $("<p>").text(`Wind Speed: ${response.wind.speed} MPH`);
@@ -46,23 +48,29 @@ function getForecast(lat, lon) {
 
         console.log(forecast);
 
-        for (var i = 0; i < 5; i++) {
+        // create header
+        var header = $("<h2>").text("5-Day Forecast:")
+        forecastResults.append(header);
+
+        for (var i = 1; i < 6; i++) {
 
             // create forecast cards
             var card = $("<div>").addClass("card");
             var cardBody = $("<div>").addClass("card-body");
 
             // create current date using memento
+            var date = $("<p>").html(`<strong>${moment().add(i, 'days').format("l")}</strong>`);
+
             // create icon
 
             // create temperature
-            var temp = $("<p>").text(`Temp: ${forecast.daily[i + 1].temp.day} °F`);
+            var temp = $("<p>").text(`Temp: ${forecast.daily[i].temp.day} °F`);
 
             // create humidity
-            var humidity = $("<p>").text(`Humidity: ${forecast.daily[i + 1].humidity}%`)
+            var humidity = $("<p>").text(`Humidity: ${forecast.daily[i].humidity}%`)
 
             // append to empty div
-            cardBody.append(temp, humidity);
+            cardBody.append(date, temp, humidity);
             card.append(cardBody);
             forecastResults.append(card);
         };
