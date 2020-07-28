@@ -6,6 +6,7 @@ var forecastResults = $("div.forecast-results");
 // api variables
 var url = "https://api.openweathermap.org/data/2.5/weather?";
 var apiKey = "7c5da79212fcccfaa4134fd2a597f8b6";
+var iconURL = "http://openweathermap.org/img/w/";
 
 // function to get current weather results
 function getCurrentWeather() {
@@ -19,14 +20,18 @@ function getCurrentWeather() {
         method: "GET"
     }).then(function (response) {
 
+        console.log(response);
+
         // create current weather data
         var cityName = $("<h2>").text(`${response.name} ${moment().format("l")}`);
+        var icon = $("<img>").attr("src", `${iconURL}${response.weather[0].icon}.png`);
         var temp = $("<p>").text(`Temperature: ${response.main.temp} °F`);
         var humidity = $("<p>").text(`Humidity: ${response.main.humidity}%`);
         var wind = $("<p>").text(`Wind Speed: ${response.wind.speed} MPH`);
 
         // append to current weather results div
         currentWeatherResults.append(cityName, temp, humidity, wind);
+        cityName.append(icon);
 
         // call get forecast function using coordinates
         getForecast(response.coord.lat, response.coord.lon);
@@ -44,6 +49,8 @@ function getForecast(lat, lon) {
         method: "GET"
     }).then(function (forecast) {
 
+        console.log(forecast);
+
         // create header
         var header = $("<h2>").text("5-Day Forecast:")
         forecastResults.append(header);
@@ -58,6 +65,7 @@ function getForecast(lat, lon) {
             var date = $("<p>").html(`<strong>${moment().add(i, 'days').format("l")}</strong>`);
 
             // create icon
+            var icon = $("<img>").attr("src", `${iconURL}${forecast.daily[i].weather[0].icon}.png`);
 
             // create temperature
             var temp = $("<p>").text(`Temp: ${forecast.daily[i].temp.day} °F`);
@@ -66,7 +74,7 @@ function getForecast(lat, lon) {
             var humidity = $("<p>").text(`Humidity: ${forecast.daily[i].humidity}%`)
 
             // append to forecast results div
-            cardBody.append(date, temp, humidity);
+            cardBody.append(date, icon, temp, humidity);
             card.append(cardBody);
             forecastResults.append(card);
         };
