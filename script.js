@@ -128,12 +128,18 @@ function getUV(uvi) {
 // function to create new search button
 function createSearchHistory(city) {
 
+    // if the button exists already then stop
+    if($(`#${city}`).length) {
+        return;
+    }
+
     // create new button
     var newSearch = $("<button>").text(city);
     newSearch.addClass("btn search-history-btn")
+    newSearch.attr("id", city)
 
     // append to search history div
-    searchHistory.append(newSearch);
+    searchHistory.prepend(newSearch);
 };
 
 // search button click event
