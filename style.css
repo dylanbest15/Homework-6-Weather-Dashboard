@@ -34,3 +34,9 @@ p.severe {
 p.extreme {
     background-color: purple;
 }
+
+/* search history buttons */
+button.search-history-btn {
+    width: 100%;
+    text-align: left;
+}

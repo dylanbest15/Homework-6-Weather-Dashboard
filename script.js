@@ -2,17 +2,22 @@
 var citySearch = $("#city-name");
 var currentWeatherResults = $("div.current-weather-results");
 var forecastResults = $("div.forecast-results");
+var searchHistory = $("div.search-history");
 
 // api variables
 var url = "https://api.openweathermap.org/data/2.5/weather?";
 var apiKey = "7c5da79212fcccfaa4134fd2a597f8b6";
 var iconURL = "http://openweathermap.org/img/w/";
+var city = "";
+
+// new search boolean for search history
+var newSearch = false;
 
 // function to get current weather results
-function getCurrentWeather() {
+function getWeather(city, newSearch) {
 
     // create query url with city name
-    var queryURL = `${url}q=${citySearch.val()}&units=imperial&appid=${apiKey}`;
+    var queryURL = `${url}q=${city}&units=imperial&appid=${apiKey}`;
 
     // get request for current weather data
     $.ajax({
@@ -35,6 +40,13 @@ function getCurrentWeather() {
 
         // call get forecast function using coordinates
         getForecast(response.coord.lat, response.coord.lon);
+
+        // if new search
+        if (newSearch) {
+            // call create search history function using city name
+            createSearchHistory(response.name);
+        };
+
     });
 };
 
@@ -92,16 +104,16 @@ function getUV(uvi) {
     var uvNumber = $("<p>").addClass("uvindex").text(uvi);
 
     // create color based on value
-    if(uvi < 3) {
+    if (uvi < 3) {
         uvNumber.addClass("low");
     }
-    else if(uvi < 6) {
+    else if (uvi < 6) {
         uvNumber.addClass("moderate");
     }
-    else if(uvi < 8) {
+    else if (uvi < 8) {
         uvNumber.addClass("high");
     }
-    else if(uvi < 11) {
+    else if (uvi < 11) {
         uvNumber.addClass("severe");
     }
     else {
@@ -113,13 +125,47 @@ function getUV(uvi) {
     currentWeatherResults.append(uvIndex);
 };
 
+// function to create new search button
+function createSearchHistory(city) {
+
+    // create new button
+    var newSearch = $("<button>").text(city);
+    newSearch.addClass("btn search-history-btn")
+
+    // append to search history div
+    searchHistory.append(newSearch);
+};
+
 // search button click event
 $("#search").on("click", function () {
+
+    // sets city to search value
+    city = citySearch.val();
+
+    // verify this as a new search
+    newSearch = true;
 
     // clear results
     currentWeatherResults.empty();
     forecastResults.empty();
 
-    // call get current weather function
-    getCurrentWeather();
+    // call get weather function
+    getWeather(city, newSearch);
+});
+
+// search history button click event
+$(document).on("click", "button.search-history-btn", function () {
+
+    // sets city to button text
+    city = $(this).text();
+
+    // verify this is not a new search
+    newSearch = false;
+
+    // clear results
+    currentWeatherResults.empty();
+    forecastResults.empty();
+
+    // call get weather function
+    getWeather(city, newSearch);
 });
