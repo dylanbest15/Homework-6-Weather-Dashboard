@@ -17,18 +17,18 @@ $(document).ready(function () {
     // local storage last search and search history
     var city = "";
     var historyArray = [];
-    if (localStorage) {
+    if (localStorage.getItem("lastSearch")) {
 
         // run last search
         city = JSON.parse(localStorage.getItem("lastSearch"));
-        getWeather(city, newSearch);
+        getWeather(city, newSearch);  
+    }
 
-        if (JSON.parse(localStorage.getItem("searchHistory"))) {
-            // create search history
-            historyArray = JSON.parse(localStorage.getItem("searchHistory"));
-            for (var i = 0; i < historyArray.length; i++) {
-                createSearchHistory(historyArray[i]);
-            }
+    if (localStorage.getItem("searchHistory")) {
+        // create search history
+        historyArray = JSON.parse(localStorage.getItem("searchHistory"));
+        for (var i = 0; i < historyArray.length; i++) {
+            createSearchHistory(historyArray[i]);
         }
     }
 
