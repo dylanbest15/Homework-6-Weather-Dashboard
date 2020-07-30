@@ -14,11 +14,20 @@ $(document).ready(function() {
     // new search boolean for search history
     var newSearch = false;
 
-    // check for local storage and show last search
+    // local storage last search and search history
     var city = "";
+    var historyArray = [];
     if (localStorage) {
+
+        // run last search
         city = JSON.parse(localStorage.getItem("lastSearch"));
         getWeather(city, newSearch);
+
+        // create search history
+        historyArray = JSON.parse(localStorage.getItem("searchHistory"));
+        for (var i = 0; i < historyArray.length; i++) {
+            createSearchHistory(historyArray[i]);
+        }
     }
 
     // function to get current weather results
@@ -32,8 +41,6 @@ $(document).ready(function() {
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-
-            console.log(response);
 
             // create current weather data
             var cityName = $("<h2>").text(`${response.name} ${moment().format("l")}`);
@@ -69,8 +76,6 @@ $(document).ready(function() {
             url: secondURL,
             method: "GET"
         }).then(function (forecast) {
-
-            console.log(forecast);
 
             // create header
             var header = $("<h2>").text("5-Day Forecast:")
@@ -140,6 +145,10 @@ $(document).ready(function() {
             return;
         }
 
+        // save to local storage
+        historyArray.push(city);
+        localStorage.setItem("searchHistory", JSON.stringify(historyArray));
+
         // create new button
         var newSearch = $("<button>").text(city);
         newSearch.addClass("btn search-history-btn")
@@ -173,7 +182,8 @@ $(document).ready(function() {
 
         // clears search history
         searchHistory.empty();
-    })
+        localStorage.clear();
+    });
 
     // search history button click event
     $(document).on("click", "button.search-history-btn", function () {
