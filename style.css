@@ -1,3 +1,15 @@
+/* jumbotron */
+div.jumbotron {
+    padding: 2rem;
+    background-color: rgb(42, 42, 44);
+}
+
+div.jumbotron h1 {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
 /* forecast cards */
 div.card {
     float: left;
@@ -39,4 +51,8 @@ p.extreme {
 button.search-history-btn {
     width: 100%;
     text-align: left;
+}
+
+button.clear-search-history {
+    margin-top: 10px;
 }

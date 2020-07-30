@@ -159,6 +159,13 @@ $(document).ready(function() {
         getWeather(city, newSearch);
     });
 
+    // clear search history button click event
+    $("button.clear-search-history").on("click", function() {
+
+        // clears search history
+        searchHistory.empty();
+    })
+
     // search history button click event
     $(document).on("click", "button.search-history-btn", function () {
 

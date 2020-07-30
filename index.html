@@ -18,7 +18,10 @@
     <!-- jumbotron header -->
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
+
+            <!-- header -->
             <h1 class="display-4">Weather Dashboard</h1>
+
         </div>
     </div>
 
@@ -26,7 +29,8 @@
     <div class="container">
         <!-- first row div -->
         <div class="row">
-            <!-- firt column for search bar and past searches -->
+
+            <!-- firt column for search bar and search history -->
             <div class="col-4">
 
                 <!-- search bar -->
@@ -39,16 +43,21 @@
                     </div>
                 </div>
 
-                <!-- empty div for past searches -->
+                <!-- empty div for search history -->
                 <div class="search-history"></div>
+
+                <!-- clear results button -->
+                <button class="btn btn-outline-secondary clear-search-history">Clear Search History</button>
 
             </div>
 
-            <!-- second column for search results -->
+            <!-- second column for weather results -->
             <div class="col-8 weather-results"></div>
-            
+
         </div>
-    </div>
+
+
+
     </div>
 
     <!-- Moment.js CDN -->
