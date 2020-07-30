@@ -5,7 +5,7 @@ div.card {
 }
 
 /* uv index number */
-p.uvindex {
+p.uv-number {
     color: white;
     padding: 5px;
     position: absolute;

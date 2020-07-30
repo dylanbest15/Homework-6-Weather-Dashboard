@@ -1,9 +1,9 @@
+// document ready
 $(document).ready(function() {
 
     // jquery element variables
     var citySearch = $("#city-name");
-    var currentWeatherResults = $("div.current-weather-results");
-    var forecastResults = $("div.forecast-results");
+    var weatherResults = $("div.weather-results");
     var searchHistory = $("div.search-history");
 
     // api variables
@@ -35,9 +35,10 @@ $(document).ready(function() {
             var temp = $("<p>").text(`Temperature: ${response.main.temp} °F`);
             var humidity = $("<p>").text(`Humidity: ${response.main.humidity}%`);
             var wind = $("<p>").text(`Wind Speed: ${response.wind.speed} MPH`);
+            var uvIndex = $("<p>").text(`UV Index: `).addClass("uv-index");
 
             // append to current weather results div
-            currentWeatherResults.append(cityName, temp, humidity, wind);
+            weatherResults.append(cityName, temp, humidity, wind, uvIndex);
             cityName.append(icon);
 
             // call get forecast function using coordinates
@@ -67,7 +68,7 @@ $(document).ready(function() {
 
             // create header
             var header = $("<h2>").text("5-Day Forecast:")
-            forecastResults.append(header);
+            weatherResults.append(header);
 
             for (var i = 1; i < 6; i++) {
 
@@ -90,7 +91,7 @@ $(document).ready(function() {
                 // append to forecast results div
                 cardBody.append(date, icon, temp, humidity);
                 card.append(cardBody);
-                forecastResults.append(card);
+                weatherResults.append(card);
             };
 
             // call get uv function using uv index
@@ -101,9 +102,8 @@ $(document).ready(function() {
     // function to get uv index results
     function getUV(uvi) {
 
-        // create uv index
-        var uvIndex = $("<p>").text(`UV Index: `);
-        var uvNumber = $("<p>").addClass("uvindex").text(uvi);
+        // create uv number
+        var uvNumber = $("<p>").addClass("uv-number").text(uvi);
 
         // create color based on value
         if (uvi < 3) {
@@ -123,8 +123,7 @@ $(document).ready(function() {
         };
 
         // append to current weather results div
-        uvIndex.append(uvNumber);
-        currentWeatherResults.append(uvIndex);
+        $("p.uv-index").append(uvNumber);
     };
 
     // function to create new search button
@@ -154,8 +153,7 @@ $(document).ready(function() {
         newSearch = true;
 
         // clear results
-        currentWeatherResults.empty();
-        forecastResults.empty();
+        weatherResults.empty();
 
         // call get weather function
         getWeather(city, newSearch);
@@ -171,8 +169,7 @@ $(document).ready(function() {
         newSearch = false;
 
         // clear results
-        currentWeatherResults.empty();
-        forecastResults.empty();
+        weatherResults.empty();
 
         // call get weather function
         getWeather(city, newSearch);
