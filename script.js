@@ -1,5 +1,5 @@
 // document ready
-$(document).ready(function() {
+$(document).ready(function () {
 
     // jquery element variables
     var citySearch = $("#city-name");
@@ -23,10 +23,12 @@ $(document).ready(function() {
         city = JSON.parse(localStorage.getItem("lastSearch"));
         getWeather(city, newSearch);
 
-        // create search history
-        historyArray = JSON.parse(localStorage.getItem("searchHistory"));
-        for (var i = 0; i < historyArray.length; i++) {
-            createSearchHistory(historyArray[i]);
+        if (JSON.parse(localStorage.getItem("searchHistory"))) {
+            // create search history
+            historyArray = JSON.parse(localStorage.getItem("searchHistory"));
+            for (var i = 0; i < historyArray.length; i++) {
+                createSearchHistory(historyArray[i]);
+            }
         }
     }
 
@@ -178,7 +180,7 @@ $(document).ready(function() {
     });
 
     // clear search history button click event
-    $("button.clear-search-history").on("click", function() {
+    $("button.clear-search-history").on("click", function () {
 
         // clears search history
         searchHistory.empty();
