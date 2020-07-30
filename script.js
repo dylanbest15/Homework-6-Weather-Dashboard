@@ -10,10 +10,16 @@ $(document).ready(function() {
     var url = "https://api.openweathermap.org/data/2.5/weather?";
     var apiKey = "7c5da79212fcccfaa4134fd2a597f8b6";
     var iconURL = "http://openweathermap.org/img/w/";
-    var city = "";
 
     // new search boolean for search history
     var newSearch = false;
+
+    // check for local storage and show last search
+    var city = "";
+    if (localStorage) {
+        city = JSON.parse(localStorage.getItem("lastSearch"));
+        getWeather(city, newSearch);
+    }
 
     // function to get current weather results
     function getWeather(city, newSearch) {
@@ -157,6 +163,9 @@ $(document).ready(function() {
 
         // call get weather function
         getWeather(city, newSearch);
+
+        // save most recent search to local storage
+        localStorage.setItem("lastSearch", JSON.stringify(city));
     });
 
     // clear search history button click event
