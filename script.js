@@ -185,7 +185,7 @@ $(document).ready(function () {
         if(event.keyCode === 13) {
             $("#search").click();
         }
-    })
+    });
 
     // clear search history button click event
     $("button.clear-search-history").on("click", function () {
