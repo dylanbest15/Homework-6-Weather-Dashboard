@@ -79,8 +79,11 @@ $(document).ready(function () {
             method: "GET"
         }).then(function (forecast) {
 
+            // append line break
+            weatherResults.append($("<br>"));
+
             // create header
-            var header = $("<h2>").text("5-Day Forecast:")
+            var header = $("<h2>").text("5-Day Forecast:");
             weatherResults.append(header);
 
             for (var i = 1; i < 6; i++) {
