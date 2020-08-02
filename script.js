@@ -119,7 +119,7 @@ $(document).ready(function () {
     function getUV(uvi) {
 
         // create uv number
-        var uvNumber = $("<p>").addClass("uv-number").text(uvi);
+        var uvNumber = $("<span>").addClass("uv-number").text(uvi);
 
         // create color based on value
         if (uvi < 3) {

@@ -43,33 +43,30 @@ div.card-body {
 }
 
 /* uv index number */
-p.uv-number {
+span.uv-number {
     color: white;
     padding: 5px;
-    position: absolute;
-    left: 93px;
-    top: 183px;
     border-radius: 5px;
 }
 
 /* uv index color options */
-p.low {
+span.low {
     background-color: green;
 }
 
-p.moderate {
+span.moderate {
     background-color: yellow;
 }
 
-p.high {
+span.high {
     background-color: orange;
 }
 
-p.severe {
+span.severe {
     background-color: red;
 }
 
-p.extreme {
+span.extreme {
     background-color: purple;
 }
 
