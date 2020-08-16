@@ -3,4 +3,4 @@ This website allows the user to search for a city and they will receive the curr
 
 ![Weather-Dashboard](screenshot-hw6.png)
 
-https://dylanbest15.github.io/Homework-6-Weather-Dashboard/
+https://dylanbest15.github.io/Weather-Dashboard/
